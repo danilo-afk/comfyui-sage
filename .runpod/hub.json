@@ -1,35 +1,31 @@
 {
-  "title": "Comfyui Sage",
-  "description": "An example description",
+  "title": "ComfyUI Z-Image Turbo",
+  "description": "ComfyUI serverless worker with Z-Image Turbo pre-loaded. Uncensored 6B image generation with SageAttention optimization.",
   "type": "serverless",
-  "category": "video",
-  "iconUrl": "https://example.com/icon.png",
+  "category": "image",
   "config": {
     "runsOn": "GPU",
-    "containerDiskInGb": 20,
-    "presets": [
-      {
-        "name": "Preset 1",
-        "defaults": {
-          "STATIC_1": "value_1",
-          "STRING_1": "default value 1"
-        }
+    "containerDiskInGb": 30,
+    "gpuCount": 1,
+    "gpuIds": "NVIDIA RTX A6000,NVIDIA GeForce RTX 4090,NVIDIA L40",
+    "allowedCudaVersions": ["12.8", "12.7", "12.6", "12.5", "12.4"]
+  },
+  "env": [
+    {
+      "key": "WORKFLOW",
+      "input": {
+        "type": "string",
+        "name": "Workflow",
+        "default": "z-image-turbo"
       }
-    ],
-    "env": [
-      {
-        "key": "STATIC_VAR",
-        "value": "static_value"
-      },
-      {
-        "key": "STRING_VAR",
-        "input": {
-          "name": "String Input",
-          "type": "string",
-          "description": "A string input test",
-          "default": "new default value"
-        }
+    },
+    {
+      "key": "HF_TOKEN",
+      "input": {
+        "type": "string",
+        "name": "HuggingFace Token (optional)",
+        "default": ""
       }
-    ]
-  }
+    }
+  ]
 }
