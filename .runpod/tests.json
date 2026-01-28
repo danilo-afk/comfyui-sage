@@ -4,38 +4,76 @@
       "name": "z_image_turbo_txt2img",
       "input": {
         "workflow": {
-          "6": {
-            "inputs": { "text": "a beautiful sunset over mountains, photorealistic", "clip": ["30", 0] },
-            "class_type": "CLIPTextEncode"
-          },
-          "8": {
-            "inputs": { "samples": ["31", 0], "vae": ["30", 2] },
-            "class_type": "VAEDecode"
-          },
-          "9": {
-            "inputs": { "filename_prefix": "ComfyUI", "images": ["8", 0] },
-            "class_type": "SaveImage"
-          },
-          "27": {
-            "inputs": { "width": 1024, "height": 1024, "batch_size": 1 },
-            "class_type": "EmptyLatentImage"
-          },
-          "30": {
-            "inputs": { "unet_name": "z-image-turbo-diffusion_model.safetensors", "weight_dtype": "default" },
+          "1": {
+            "inputs": {
+              "unet_name": "z_image_turbo_bf16.safetensors",
+              "weight_dtype": "default"
+            },
             "class_type": "UNETLoader"
           },
-          "31": {
+          "2": {
             "inputs": {
-              "seed": 42, "steps": 8, "cfg": 0, "sampler_name": "euler",
-              "scheduler": "normal", "denoise": 1,
-              "model": ["30", 0], "positive": ["6", 0],
-              "negative": ["33", 0], "latent_image": ["27", 0]
+              "clip_name": "qwen_3_4b.safetensors",
+              "type": "lumina2"
+            },
+            "class_type": "CLIPLoader"
+          },
+          "3": {
+            "inputs": {
+              "vae_name": "ae.safetensors"
+            },
+            "class_type": "VAELoader"
+          },
+          "4": {
+            "inputs": {
+              "text": "a beautiful sunset over mountains, photorealistic",
+              "clip": ["2", 0]
+            },
+            "class_type": "CLIPTextEncode"
+          },
+          "5": {
+            "inputs": {
+              "text": "",
+              "clip": ["2", 0]
+            },
+            "class_type": "CLIPTextEncode"
+          },
+          "6": {
+            "inputs": {
+              "width": 1024,
+              "height": 1024,
+              "batch_size": 1
+            },
+            "class_type": "EmptyLatentImage"
+          },
+          "7": {
+            "inputs": {
+              "seed": 42,
+              "steps": 8,
+              "cfg": 1.0,
+              "sampler_name": "euler_ancestral",
+              "scheduler": "sgm_uniform",
+              "denoise": 1.0,
+              "model": ["1", 0],
+              "positive": ["4", 0],
+              "negative": ["5", 0],
+              "latent_image": ["6", 0]
             },
             "class_type": "KSampler"
           },
-          "33": {
-            "inputs": { "text": "", "clip": ["30", 0] },
-            "class_type": "CLIPTextEncode"
+          "8": {
+            "inputs": {
+              "samples": ["7", 0],
+              "vae": ["3", 0]
+            },
+            "class_type": "VAEDecode"
+          },
+          "9": {
+            "inputs": {
+              "filename_prefix": "z-image",
+              "images": ["8", 0]
+            },
+            "class_type": "SaveImage"
           }
         }
       },
