@@ -343,4 +343,7 @@ download_model_files
 
 echo "> Start script finished, Pod is ready to use. <"
 
+# Inicia handler serverless do RunPod
+python /handler.py &
+
 sleep infinity
