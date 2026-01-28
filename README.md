@@ -2,6 +2,8 @@
 
 Run the latest ComfyUI on RunPod with SageAttention. By default, it installs all the needed models for the z-image turbo model.
 
+[![Runpod](https://api.runpod.io/badge/danilo-afk/comfyui-sage)](https://console.runpod.io/hub/danilo-afk/comfyui-sage)
+
 ## Requirements
 
 - **Minimum CUDA Version: 12.8**
