@@ -53,3 +53,8 @@ EXPOSE 22 8888 8188
 
 # Set default command to run start script
 CMD ["/start.sh"]
+
+# --- Serverless handler ---
+RUN pip install --no-cache-dir runpod requests
+COPY handler.py /handler.py
+CMD ["/start.sh"]
